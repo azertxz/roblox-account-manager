@@ -4,12 +4,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Roblox Account Manager")]
-[assembly: AssemblyDescription("Created by ic3w0lf")]
+[assembly: AssemblyTitle("Calf Account Manager")]
+[assembly: AssemblyDescription("Account manager for staff automation workflows")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("ic3")]
-[assembly: AssemblyProduct("Roblox Account Manager")]
-[assembly: AssemblyCopyright("Copyright © ic3 2023")]
+[assembly: AssemblyCompany("Calf")]
+[assembly: AssemblyProduct("Calf Account Manager")]
+[assembly: AssemblyCopyright("Copyright © Calf")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

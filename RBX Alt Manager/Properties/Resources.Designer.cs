@@ -80,7 +80,7 @@ namespace RBX_Alt_Manager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://github.com/ic3w0lf22/Roblox-Account-Manager/releases/download/3.5.2/CEF.zip.
+        ///   Looks up a localized string similar to https://github.com/calf/roblox-account-manager/releases/download/3.5.2/CEF.zip.
         /// </summary>
         internal static string CefSharpDownload {
             get {
@@ -128,16 +128,6 @@ namespace RBX_Alt_Manager.Properties {
         internal static System.Drawing.Bitmap disc {
             get {
                 object obj = ResourceManager.GetObject("disc", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap donation {
-            get {
-                object obj = ResourceManager.GetObject("donation", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -203,7 +193,7 @@ namespace RBX_Alt_Manager.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Nexus_Version = 104
         ///
-        ///local FileName, Success, Error, Function = &apos;ic3w0lf22.Nexus.lua&apos;
+        ///local FileName, Success, Error, Function = &apos;Calf.Nexus.lua&apos;
         ///
         ///if isfile and readfile and isfile(FileName) then -- Execute ASAP, update later.
         ///	Function, Error = loadstring(readfile(FileName), &apos;Nexus&apos;)
@@ -217,7 +207,7 @@ namespace RBX_Alt_Manager.Properties {
         ///
         ///for i=1, 10 do
         ///	Success, Error = pcall(function()
-        ///		local Response = (http_request or (syn and syn.request)) { Method = &apos;GET&apos;, Url = &apos;https://raw.githubusercontent.com/ic3w0lf22/Roblox-Accoun [rest of string was truncated]&quot;;.
+        ///		local Response = (http_request or (syn and syn.request)) { Method = &apos;GET&apos;, Url = &apos;https://raw.githubusercontent.com/calf/roblox-account-manager [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string NexusLoader {
             get {
@@ -275,24 +265,5 @@ namespace RBX_Alt_Manager.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon team_KX4_icon {
-            get {
-                object obj = ResourceManager.GetObject("team_KX4_icon", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon team_KX4_icon_white {
-            get {
-                object obj = ResourceManager.GetObject("team_KX4_icon_white", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
     }
 }

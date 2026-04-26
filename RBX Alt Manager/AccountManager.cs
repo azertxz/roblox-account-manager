@@ -118,7 +118,7 @@ namespace RBX_Alt_Manager
             Watcher = IniSettings.Section("Watcher");
             Prompts = IniSettings.Section("Prompts");
 
-            if (!General.Exists("CheckForUpdates")) General.Set("CheckForUpdates", "true");
+            if (!General.Exists("CheckForUpdates")) General.Set("CheckForUpdates", "false");
             if (!General.Exists("AccountJoinDelay")) General.Set("AccountJoinDelay", "8");
             if (!General.Exists("AsyncJoin")) General.Set("AsyncJoin", "false");
             if (!General.Exists("DisableAgingAlert")) General.Set("DisableAgingAlert", "false");
@@ -172,7 +172,7 @@ namespace RBX_Alt_Manager
 
             AccountsView.SetObjects(AccountsList);
 
-            if (ThemeEditor.UseDarkTopBar) Icon = Properties.Resources.team_KX4_icon_white; // this has to go after or icon wont actually change
+            if (ThemeEditor.UseDarkTopBar) Icon = Properties.Resources.server_icon_white; // this has to go after or icon wont actually change
 
             AccountsView.UnfocusedHighlightBackgroundColor = Color.FromArgb(0, 150, 215);
             AccountsView.UnfocusedHighlightForegroundColor = Color.FromArgb(240, 240, 240);
@@ -703,7 +703,7 @@ namespace RBX_Alt_Manager
                         Assembly assembly = Assembly.GetExecutingAssembly();
                         FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
                         WC.Headers["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36";
-                        string Releases = WC.DownloadString("https://api.github.com/repos/ic3w0lf22/Roblox-Account-Manager/releases/latest");
+                        string Releases = WC.DownloadString("https://api.github.com/repos/calf/roblox-account-manager/releases/latest");
                         Match match = Regex.Match(Releases, @"""tag_name"":\s*""?([^""]+)");
 
                         if (match.Success)
@@ -733,7 +733,7 @@ namespace RBX_Alt_Manager
                                     //else
                                     //{
                                     //    MessageBox.Show("You do not have the auto updater downloaded, go to the github page and download the latest release.");
-                                    //    Process.Start("https://github.com/ic3w0lf22/Roblox-Account-Manager/releases");
+                                    //    Process.Start("https://github.com/calf/roblox-account-manager/releases");
                                     //}
                                 }
                             }
@@ -1009,7 +1009,7 @@ namespace RBX_Alt_Manager
                 return Reply($"Launched {Account} to {PlaceId}", true);
             }
 
-            if (Method == "FollowUser") // https://github.com/ic3w0lf22/Roblox-Account-Manager/pull/52
+            if (Method == "FollowUser")
             {
                 if (!WebServer.Get<bool>("AllowLaunchAccount")) return Reply("Method `FollowUser` not allowed", false, 401, "Method not allowed");
 
@@ -1774,7 +1774,14 @@ namespace RBX_Alt_Manager
             }
         }
 
-        private void JoinDiscord_Click(object sender, EventArgs e) => Process.Start("https://discord.gg/MsEH7smXY8");
+        private void JoinDiscord_Click(object sender, EventArgs e)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://discord.gg/calf",
+                UseShellExecute = true,
+            });
+        }
 
         private void OpenBrowser_Click(object sender, EventArgs e)
         {
@@ -2043,13 +2050,10 @@ namespace RBX_Alt_Manager
         }
 
         private void infoToolStripMenuItem1_Click(object sender, EventArgs e) =>
-            MessageBox.Show("Roblox Account Manager created by ic3w0lf under the GNU GPLv3 license.", "Roblox Account Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Calf Account Manager is distributed under the GNU GPLv3 license.", "Calf Account Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         private void groupsToolStripMenuItem_Click(object sender, EventArgs e) =>
             MessageBox.Show("Groups can be sorted by naming them a number then whatever you want.\nFor example: You can put Group Apple on top by naming it '001 Apple' or '1Apple'.\nThe numbers will be hidden from the name but will be correctly sorted depending on the number.\nAccounts can also be dragged into groups.", "Roblox Account Manager", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-        private void DonateButton_Click(object sender, EventArgs e) =>
-            Process.Start("https://ic3w0lf22.github.io/donate.html");
 
         private void ConfigButton_Click(object sender, EventArgs e)
         {

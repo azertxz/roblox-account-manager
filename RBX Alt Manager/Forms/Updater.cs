@@ -1,11 +1,12 @@
 ﻿using IWshRuntimeLibrary;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Net.Http;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using File = System.IO.File;
@@ -76,18 +77,17 @@ namespace Auto_Update
 #else
             using var client = new HttpClient() { Timeout = TimeSpan.FromMinutes(20) };
             client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36");
-            string Releases = await client.GetStringAsync("https://api.github.com/repos/ic3w0lf22/Roblox-Account-Manager/releases/tags/0.0");
-            Match match = Regex.Match(Releases, @"""browser_download_url"":\s*""?([^""]+)");
+            string Releases = await client.GetStringAsync("https://api.github.com/repos/calf/roblox-account-manager/releases/latest");
+            string DownloadUrl = JObject.Parse(Releases)["assets"]
+                ?.FirstOrDefault(x => x?["browser_download_url"]?.Value<string>()?.EndsWith(".zip", StringComparison.OrdinalIgnoreCase) == true)?["browser_download_url"]?.Value<string>();
 
-            if (match.Success && match.Groups.Count >= 2)
+            if (!string.IsNullOrEmpty(DownloadUrl))
             {
-                if (match.Groups[1].Value.Contains(".rar"))
+                if (DownloadUrl.Contains(".rar"))
                 {
                     Environment.Exit(247);
                     return;
                 }
-
-                string DownloadUrl = match.Groups[1].Value;
 
                 TotalDownloadSize = (await client.SendAsync(new HttpRequestMessage(HttpMethod.Head, DownloadUrl))).Content.Headers.ContentLength.Value;
 

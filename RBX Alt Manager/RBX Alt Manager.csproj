@@ -61,7 +61,7 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\team_KX4_icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\server_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -588,7 +588,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\team_KX4_icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
@@ -609,13 +608,11 @@
     <None Include="Resources\online.png" />
     <None Include="Nexus\Nexus.lua" />
     <Content Include="Resources\configIcon.png" />
-    <Content Include="Resources\donation.png" />
     <None Include="Resources\icons8-history-32.png" />
     <None Include="Resources\handle.exe" />
     <Content Include="Resources\server_icon_white.ico" />
     <None Include="Resources\ShuffleIcon.png" />
     <None Include="Resources\shuffle-crossing-arrows.png" />
-    <Content Include="Resources\team_KX4_icon_white.ico" />
     <None Include="Resources\disc.png" />
     <None Include="Resources\SaveIconSmall.png" />
     <Content Include="Resources\server_icon.ico" />

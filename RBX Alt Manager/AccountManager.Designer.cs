@@ -86,7 +86,6 @@ namespace RBX_Alt_Manager
             this.DefaultEncryptionButton = new System.Windows.Forms.Button();
             this.PasswordEncryptionButton = new System.Windows.Forms.Button();
             this.JobID = new RBX_Alt_Manager.Classes.BorderedTextBox();
-            this.DonateButton = new System.Windows.Forms.Button();
             this.AccountsView = new BrightIdeasSoftware.ObjectListView();
             this.Username = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.AccountAlias = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -632,19 +631,6 @@ namespace RBX_Alt_Manager
         "e Server link in this box to join it.");
             this.JobID.Click += new System.EventHandler(this.JobID_Click);
             // 
-            // DonateButton
-            // 
-            this.DonateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.DonateButton.FlatAppearance.BorderSize = 0;
-            this.DonateButton.Image = global::RBX_Alt_Manager.Properties.Resources.donation;
-            this.DonateButton.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.DonateButton.Location = new System.Drawing.Point(750, 6);
-            this.DonateButton.Name = "DonateButton";
-            this.DonateButton.Size = new System.Drawing.Size(24, 24);
-            this.DonateButton.TabIndex = 1001;
-            this.DonateButton.UseVisualStyleBackColor = true;
-            this.DonateButton.Click += new System.EventHandler(this.DonateButton_Click);
-            // 
             // AccountsView
             // 
             this.AccountsView.AllColumns.Add(this.Username);
@@ -747,7 +733,7 @@ namespace RBX_Alt_Manager
             this.ConfigButton.FlatAppearance.BorderSize = 0;
             this.ConfigButton.Image = global::RBX_Alt_Manager.Properties.Resources.configIcon;
             this.ConfigButton.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.ConfigButton.Location = new System.Drawing.Point(720, 6);
+            this.ConfigButton.Location = new System.Drawing.Point(750, 6);
             this.ConfigButton.Name = "ConfigButton";
             this.ConfigButton.Size = new System.Drawing.Size(24, 24);
             this.ConfigButton.TabIndex = 1002;
@@ -1062,7 +1048,6 @@ namespace RBX_Alt_Manager
             this.Controls.Add(this.HistoryIcon);
             this.Controls.Add(this.ConfigButton);
             this.Controls.Add(this.LaunchNexus);
-            this.Controls.Add(this.DonateButton);
             this.Controls.Add(this.EditTheme);
             this.Controls.Add(this.SaveToAccount);
             this.Controls.Add(this.OpenBrowser);
@@ -1162,7 +1147,6 @@ namespace RBX_Alt_Manager
         private System.Windows.Forms.Button EditTheme;
         private System.Windows.Forms.ToolStripMenuItem groupsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem infoToolStripMenuItem1;
-        private System.Windows.Forms.Button DonateButton;
         private System.Windows.Forms.Button LaunchNexus;
         private System.Windows.Forms.ToolStripMenuItem copyPasswordToolStripMenuItem;
         private System.Windows.Forms.Button ConfigButton;

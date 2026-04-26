@@ -1,4 +1,4 @@
--- DOCUMENTATION: https://ic3w0lf22.gitbook.io/roblox-account-manager/
+-- DOCUMENTATION: Set this to your internal docs URL.
 
 local Account = {} Account.__index = Account
 
