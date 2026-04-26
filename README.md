@@ -1,13 +1,13 @@
-[![Download](https://img.shields.io/github/v/release/calf/roblox-account-manager)](https://github.com/calf/roblox-account-manager/releases/latest)
-[![Latest Downloads](https://img.shields.io/github/downloads/calf/roblox-account-manager/latest/total)](https://github.com/calf/roblox-account-manager/releases)
+[![Download](https://img.shields.io/github/v/release/azertxz/roblox-account-manager)](https://github.com/azertxz/roblox-account-manager/releases/latest)
+[![Latest Downloads](https://img.shields.io/github/downloads/azertxz/roblox-account-manager/latest/total)](https://github.com/azertxz/roblox-account-manager/releases)
 [![Discord](https://img.shields.io/discord/871845273800957982?label=Discord)](https://discord.gg/calf)
-![License](https://img.shields.io/github/license/calf/roblox-account-manager)
+![License](https://img.shields.io/github/license/azertxz/roblox-account-manager)
 
 <!-- BEGIN LATEST DOWNLOAD BUTTON -->
-[![Download zip](https://custom-icon-badges.herokuapp.com/badge/-Download-blue?style=for-the-badge&logo=download&logoColor=white "Download")](https://github.com/calf/roblox-account-manager/releases/latest)
+[![Download zip](https://custom-icon-badges.herokuapp.com/badge/-Download-blue?style=for-the-badge&logo=download&logoColor=white "Download")](https://github.com/azertxz/roblox-account-manager/releases/latest)
 <!-- END LATEST DOWNLOAD BUTTON -->
 
-[Click here to view Roblox Account Manager features](https://github.com/calf/roblox-account-manager/blob/master/README.md#features)
+[Click here to view Roblox Account Manager features](https://github.com/azertxz/roblox-account-manager/blob/master/README.md#features)
 
 # Roblox Account Manager
 Application that allows you to add multiple accounts into one application allowing you to easily play on alt accounts without having to change accounts
@@ -16,7 +16,7 @@ Useful for games that require grinding off other players, or storage accounts th
 
 You are welcome to edit the code and create pull requests if it'll benefit this project.
 
-Multiple Roblox Instances is built into the account manager but [must be manually enabled](https://github.com/calf/roblox-account-manager/blob/master/README.md#q-how-do-i-enable-multi-roblox).
+Multiple Roblox Instances is built into the account manager but [must be manually enabled](https://github.com/azertxz/roblox-account-manager/blob/master/README.md#q-how-do-i-enable-multi-roblox).
 
 Report bugs in issues or join Discord: https://discord.gg/calf
 
@@ -30,24 +30,24 @@ Beware of the risks that you are taking if you accidentally send something to so
 If you ever want a friend to join a game using your account, make sure you have the PlaceId and JobId correctly entered, then right click an account, and click "Copy rbx-player link", DO NOT do this if someone asks you for it.
 
 # Download
-To install this, head over to the [Releases](https://github.com/calf/roblox-account-manager/releases) section and download the latest zip, extract the files into a folder, and run RBX Alt Manager.exe.
+To install this, head over to the [Releases](https://github.com/azertxz/roblox-account-manager/releases) section and download the latest zip, extract the files into a folder, and run RBX Alt Manager.exe.
 
 Quick links for staff:
-- Latest release page: https://github.com/calf/roblox-account-manager/releases/latest
-- Direct latest download (keep this filename the same every release): https://github.com/calf/roblox-account-manager/releases/latest/download/Calf.Account.Manager.zip
+- Latest release page: https://github.com/azertxz/roblox-account-manager/releases/latest
+- Direct latest download (keep this filename the same every release): https://github.com/azertxz/roblox-account-manager/releases/latest/download/Calf.Account.Manager.zip
 
 If the application isn't starting or not working, make sure to install the [Latest .NET Framework](https://dotnet.microsoft.com/download/dotnet-framework).
 Still having issues? Download and install [vcredist](https://aka.ms/vs/16/release/vc_redist.x86.exe)
 
 # Developer API
-To view the documentation, [click here](https://github.com/calf/roblox-account-manager/wiki).
+To view the documentation, [click here](https://github.com/azertxz/roblox-account-manager/wiki).
 Change the webserver port if you are planning on using any dangerous functions!
 Be careful executing random scripts when having dangerous settings enabled.
 
 # Frequently Asked Questions
 ## **Q:** Why is this program detected as a virus?
 
-**A:** Open source programs such as this program are commonly detected as viruses because actual malware may be using the same libraries as this one. For example, account manager may be detected as a RAT because of the Account Control feature, this feature uses [websockets](https://github.com/calf/roblox-account-manager/blob/master/RBX%20Alt%20Manager/Nexus/WebsocketServer.cs) to connect to clients which is the same way actual malware may use to connect maliciously to someone else's computer. If you'd like, you can download [visual studio](https://visualstudio.microsoft.com/downloads/) yourself (it's free) and compile this program on your own, you may even get the same virus detections as the public release.
+**A:** Open source programs such as this program are commonly detected as viruses because actual malware may be using the same libraries as this one. For example, account manager may be detected as a RAT because of the Account Control feature, this feature uses [websockets](https://github.com/azertxz/roblox-account-manager/blob/master/RBX%20Alt%20Manager/Nexus/WebsocketServer.cs) to connect to clients which is the same way actual malware may use to connect maliciously to someone else's computer. If you'd like, you can download [visual studio](https://visualstudio.microsoft.com/downloads/) yourself (it's free) and compile this program on your own, you may even get the same virus detections as the public release.
 
 
 ## **Q:** How do I enable multi-roblox?
@@ -89,7 +89,7 @@ Be careful executing random scripts when having dangerous settings enabled.
 
 ## **Q:** Are there docs for the API?
 
-**A:** Yes, there are docs: https://github.com/calf/roblox-account-manager/wiki
+**A:** Yes, there are docs: https://github.com/azertxz/roblox-account-manager/wiki
 
 
 ## **Q:** My anti virus detects this program as a virus. Should I not use it?
@@ -135,7 +135,7 @@ Make sure you click "Open Details" before screenshotting. Please make sure your 
 | :--- | :---: | ---: |
 | Account Encryption | All your account data is locally encrypted using your computer as the **password/key** meaning if someone else gets a hold of your account data, they will **NOT** be able to decrypt it unless you decrypted it yourself and shared it | **DO NOT SHARE YOUR `AccountData.json` FILE AT ALL |
 | Password Encryption | Use a password to encrypt your data | This is recommended as it allows you store your data safely in google drive/similar and won't get corrupted due to you switching computers |
-| [Multi Roblox](https://github.com/calf/roblox-account-manager/blob/master/README.md#q-how-do-i-enable-multi-roblox) | [DISABLED BY DEFAULT, READ FAQ] RAM comes with a built-in multi Roblox allowing multiple Roblox clients to be open at once | **If this doesn't work for you, make sure no Roblox processes are running in the background by checking in task manager, then restart RAM** |
+| [Multi Roblox](https://github.com/azertxz/roblox-account-manager/blob/master/README.md#q-how-do-i-enable-multi-roblox) | [DISABLED BY DEFAULT, READ FAQ] RAM comes with a built-in multi Roblox allowing multiple Roblox clients to be open at once | **If this doesn't work for you, make sure no Roblox processes are running in the background by checking in task manager, then restart RAM** |
 | Load Region | See where a server is located and get an accurate ping reading | Right click a server in the `Server List`, then click `Load Region` **(Requires a valid account to be selected in the main window)** |
 | Server List | See a game's servers, including the servers' data such as player count and server ping | Click `Server List` on the right side of the main window |
 | [Join Small Servers](https://youtu.be/Red66cV6vVI) | Easily join small servers in games that use lobby starter places to teleport you to another game | Insert the actual game's PlaceId into the text box next to `Refresh` in the `Server List`, click `Refresh`, then right click a server and click `Join Game`, you will hear a beep if successful, once you hear that beep, you can join the main game |
@@ -159,8 +159,8 @@ Make sure you click "Open Details" before screenshotting. Please make sure your 
 | Save Passwords | Upon logging into an account, RAM will automatically save that accounts password which can then be copied by right clicking the account, then selecting `Copy Password` | This can be disabled by clicking the settings button (gear cog in top-right corner), the unchecking `Save Passwords` |
 | Themes | Customize RAM to your liking (P.S. I know it's very ugly, not much I can do about it with WinForms) | Click `Edit Theme` in the main window |
 | Developer Mode | Enable hidden features not available to normal users for safety reasons | Click the settings button (gear cog in top-right corner), click `Developer`, then check the `Enable Developer Mode` box |
-| Local Web API | Easily use many RAM features by making a simple http request | [Documentation](https://github.com/calf/roblox-account-manager/wiki) |
-| Account Control | Control your in-game accounts using the `Account Control` window in RAM | Click `Account Control` in the main window - [Documentation](https://github.com/calf/roblox-account-manager/blob/master/RBX%20Alt%20Manager/Nexus/NexusDocs.md) |
+| Local Web API | Easily use many RAM features by making a simple http request | [Documentation](https://github.com/azertxz/roblox-account-manager/wiki) |
+| Account Control | Control your in-game accounts using the `Account Control` window in RAM | Click `Account Control` in the main window - [Documentation](https://github.com/azertxz/roblox-account-manager/blob/master/RBX%20Alt%20Manager/Nexus/NexusDocs.md) |
 | Import Cookies | Import accounts using their .ROBLOSECURITY cookies | You can drag and drop one or multiple cookies directly into the program, or you can enable developer mode and use the `Import` window |
 | FPS Unlocker | Unlocks the Roblox client's FPS using Roblox's ClientAppSettings.json | Settings can be found by clicking the settings cog, then miscellaneous |
 | Bulk User Importing | Easily import your accounts by their username & password combos, or by cookies | Click the arrow on the right side of the `Add Account` button, then select user:pass/cookies |

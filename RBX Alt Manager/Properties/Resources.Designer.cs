@@ -80,7 +80,7 @@ namespace RBX_Alt_Manager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://github.com/calf/roblox-account-manager/releases/download/3.5.2/CEF.zip.
+        ///   Looks up a localized string similar to https://github.com/azertxz/roblox-account-manager/releases/download/3.5.2/CEF.zip.
         /// </summary>
         internal static string CefSharpDownload {
             get {
@@ -207,7 +207,7 @@ namespace RBX_Alt_Manager.Properties {
         ///
         ///for i=1, 10 do
         ///	Success, Error = pcall(function()
-        ///		local Response = (http_request or (syn and syn.request)) { Method = &apos;GET&apos;, Url = &apos;https://raw.githubusercontent.com/calf/roblox-account-manager [rest of string was truncated]&quot;;.
+        ///		local Response = (http_request or (syn and syn.request)) { Method = &apos;GET&apos;, Url = &apos;https://raw.githubusercontent.com/azertxz/roblox-account-manager [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string NexusLoader {
             get {

@@ -703,7 +703,7 @@ namespace RBX_Alt_Manager
                         Assembly assembly = Assembly.GetExecutingAssembly();
                         FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
                         WC.Headers["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36";
-                        string Releases = WC.DownloadString("https://api.github.com/repos/calf/roblox-account-manager/releases/latest");
+                        string Releases = WC.DownloadString("https://api.github.com/repos/azertxz/roblox-account-manager/releases/latest");
                         Match match = Regex.Match(Releases, @"""tag_name"":\s*""?([^""]+)");
 
                         if (match.Success)
@@ -733,7 +733,7 @@ namespace RBX_Alt_Manager
                                     //else
                                     //{
                                     //    MessageBox.Show("You do not have the auto updater downloaded, go to the github page and download the latest release.");
-                                    //    Process.Start("https://github.com/calf/roblox-account-manager/releases");
+                                    //    Process.Start("https://github.com/azertxz/roblox-account-manager/releases");
                                     //}
                                 }
                             }
