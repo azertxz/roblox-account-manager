@@ -52,6 +52,7 @@ namespace RBX_Alt_Manager
         public static RestClient Web13Client;
         public static string CurrentPlaceId { get => Instance.PlaceID.Text; }
         public static string CurrentJobId { get => Instance.JobID.Text; }
+        public static string CurrentPrivateCode { get => Instance.PrivateCode.Text; }
         private ArgumentsForm afform;
         private ServerList ServerListForm;
         private AccountUtils UtilsForm;
@@ -146,6 +147,29 @@ namespace RBX_Alt_Manager
             if (!General.Exists("UnlockFPS")) General.Set("UnlockFPS", "false");
             if (!General.Exists("MaxFPSValue")) General.Set("MaxFPSValue", "120");
             if (!General.Exists("UseCefSharpBrowser")) General.Set("UseCefSharpBrowser", "false");
+            if (!General.Exists("EnableMultiRbx")) General.Set("EnableMultiRbx", "true");
+            if (!General.Exists("EnableAutoOptimization")) General.Set("EnableAutoOptimization", "false");
+            if (!General.Exists("OptimizationProfile")) General.Set("OptimizationProfile", "Balanced");
+            if (!General.Exists("OptimizationBackendPreference")) General.Set("OptimizationBackendPreference", "Auto");
+            if (!General.Exists("OptimizationDetectedBackend")) General.Set("OptimizationDetectedBackend", "Unknown");
+            if (!General.Exists("OptimizationDetectedProvider")) General.Set("OptimizationDetectedProvider", "Unknown");
+            if (!General.Exists("OptimizationDetectionReason")) General.Set("OptimizationDetectionReason", "Not yet detected");
+            if (!General.Exists("OptimizationCapabilities")) General.Set("OptimizationCapabilities", "None");
+            if (!General.Exists("OptimizationApplyOnStartup")) General.Set("OptimizationApplyOnStartup", "true");
+            if (!General.Exists("OptimizationReapplyAfterClientUpdate")) General.Set("OptimizationReapplyAfterClientUpdate", "true");
+            if (!General.Exists("OptimizationLastAppliedVersion")) General.Set("OptimizationLastAppliedVersion", "Unknown");
+            if (!General.Exists("OptimizationLastAppliedBackend")) General.Set("OptimizationLastAppliedBackend", "Unknown");
+            if (!General.Exists("OptimizationLastAppliedProvider")) General.Set("OptimizationLastAppliedProvider", "Unknown");
+            if (!General.Exists("OptimizationLastAppliedProfile")) General.Set("OptimizationLastAppliedProfile", "None");
+            if (!General.Exists("OptimizationLastApplyStatus")) General.Set("OptimizationLastApplyStatus", "Never");
+            if (!General.Exists("OptimizationLastApplyReason")) General.Set("OptimizationLastApplyReason", "Never");
+            if (!General.Exists("OptimizationLastApplyTrigger")) General.Set("OptimizationLastApplyTrigger", "Never");
+            if (!General.Exists("OptimizationLastApplyUtc")) General.Set("OptimizationLastApplyUtc", "Never");
+            if (!General.Exists("OptimizationLastAppliedKeys")) General.Set("OptimizationLastAppliedKeys", "None");
+            if (!General.Exists("EnableAntiAfk")) General.Set("EnableAntiAfk", "false");
+            if (!General.Exists("AntiAfkMinInterval")) General.Set("AntiAfkMinInterval", "75");
+            if (!General.Exists("AntiAfkMaxInterval")) General.Set("AntiAfkMaxInterval", "240");
+            if (!General.Exists("AntiAfkUseBackground")) General.Set("AntiAfkUseBackground", "false");
 
             if (!Developer.Exists("DevMode")) Developer.Set("DevMode", "false");
             if (!Developer.Exists("EnableWebServer")) Developer.Set("EnableWebServer", "false");
@@ -673,8 +697,9 @@ namespace RBX_Alt_Manager
 
             RGForm.RecentGameSelected += (sender, e) => { PlaceID.Text = e.Game.Details?.placeId.ToString(); };
 
-            PlaceID.Text = General.Exists("SavedPlaceId") ? General.Get("SavedPlaceId") : "5315046213";
+            PlaceID.Text = General.Exists("SavedPlaceId") ? General.Get("SavedPlaceId") : "2534724415";
             UserID.Text = General.Exists("SavedFollowUser") ? General.Get("SavedFollowUser") : string.Empty;
+            PrivateCode.Text = General.Exists("SavedPrivateCode") ? General.Get("SavedPrivateCode") : string.Empty;
 
             if (!Developer.Get<bool>("DevMode"))
             {
@@ -779,7 +804,10 @@ namespace RBX_Alt_Manager
                 string VersionJSON = WC.DownloadString("https://clientsettings.roblox.com/v1/client-version/WindowsPlayer");
 
                 if (JObject.Parse(VersionJSON).TryGetValue("clientVersionUpload", out JToken token))
+                {
                     CurrentVersion = token.Value<string>();
+                    OptimizationService.HandleClientVersionDetected(CurrentVersion);
+                }
             });
 
             IniSettings.Save("RAMSettings.ini");
@@ -790,6 +818,10 @@ namespace RBX_Alt_Manager
 
             Task.Run(LoadRecentGames);
             Task.Run(RobloxProcess.UpdateMatches);
+
+            OptimizationService.Initialize();
+            OptimizationService.ApplyOnStartupIfEnabled();
+            IniSettings.Save("RAMSettings.ini");
 
             if (General.Get<bool>("ShuffleJobId"))
                 ShuffleIcon_Click(null, EventArgs.Empty);
@@ -819,6 +851,8 @@ namespace RBX_Alt_Manager
 
             var PresenceTimer = new System.Timers.Timer(60000 * 2) { Enabled = true };
             PresenceTimer.Elapsed += (s, e) => AccountsView.InvokeIfRequired(async () => await UpdatePresence());
+
+            AntiAfkService.Configure(General.Get<bool>("EnableAntiAfk"), General.Get<int>("AntiAfkMinInterval"), General.Get<int>("AntiAfkMaxInterval"), General.Get<bool>("AntiAfkUseBackground"));
         }
 
         public void ApplyTheme()
@@ -1148,6 +1182,9 @@ namespace RBX_Alt_Manager
 
         private void AccountManager_Shown(object sender, EventArgs e)
         {
+            General.Set("EnableMultiRbx", "true");
+            IniSettings.Save("RAMSettings.ini");
+
             if (!UpdateMultiRoblox() && !General.Get<bool>("HideRbxAlert"))
                 MessageBox.Show("WARNING: Roblox is currently running, multi roblox will not work until you restart the account manager with roblox closed.", "Roblox Account Manager", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
@@ -1441,6 +1478,42 @@ namespace RBX_Alt_Manager
 
             if (!string.IsNullOrEmpty(SelectedAccount.GetField("SavedPlaceId"))) PlaceID.Text = SelectedAccount.GetField("SavedPlaceId");
             if (!string.IsNullOrEmpty(SelectedAccount.GetField("SavedJobId"))) JobID.Text = SelectedAccount.GetField("SavedJobId");
+            if (!string.IsNullOrEmpty(SelectedAccount.GetField("SavedPrivateCode"))) PrivateCode.Text = SelectedAccount.GetField("SavedPrivateCode");
+        }
+
+        private static bool TryParsePrcJoinInput(string input, out string code, out string placeId)
+        {
+            code = string.Empty;
+            placeId = string.Empty;
+
+            if (string.IsNullOrWhiteSpace(input))
+                return false;
+
+            string value = input.Trim();
+
+            Match codeMatch = Regex.Match(value, @"(?:\?|&|/)code=([^&#/]+)", RegexOptions.IgnoreCase);
+            Match placeMatch = Regex.Match(value, @"(?:\?|&)placeId=(\d+)", RegexOptions.IgnoreCase);
+
+            if (codeMatch.Success)
+                code = Uri.UnescapeDataString(codeMatch.Groups[1].Value);
+
+            if (placeMatch.Success)
+                placeId = placeMatch.Groups[1].Value;
+
+            if (!string.IsNullOrEmpty(code) || !string.IsNullOrEmpty(placeId))
+                return true;
+
+            return false;
+        }
+
+        private static string BuildPrcLaunchData(string privateCode)
+        {
+            if (string.IsNullOrWhiteSpace(privateCode))
+                return string.Empty;
+
+            string escapedCode = privateCode.Trim().Replace("\\", "\\\\").Replace("\"", "\\\"");
+
+            return $"{{\"psCode\":\"{escapedCode}\"}}";
         }
 
         private void SetAlias_Click(object sender, EventArgs e)
@@ -1461,10 +1534,30 @@ namespace RBX_Alt_Manager
 
         private void JoinServer_Click(object sender, EventArgs e)
         {
+            string privateCode = (PrivateCode.Text ?? string.Empty).Trim();
+
+            if (TryParsePrcJoinInput(privateCode, out string privateCodeFromPrc, out string privatePlaceFromPrc))
+            {
+                if (!string.IsNullOrEmpty(privateCodeFromPrc)) privateCode = privateCodeFromPrc;
+                if (!string.IsNullOrEmpty(privatePlaceFromPrc)) PlaceID.Text = privatePlaceFromPrc;
+            }
+
             Match IDMatch = Regex.Match(PlaceID.Text, @"\/games\/(\d+)[\/|\?]?"); // idiotproofing
 
             if (PlaceID.Text.Contains("privateServerLinkCode") && IDMatch.Success)
                 JobID.Text = PlaceID.Text;
+
+            if (TryParsePrcJoinInput(PlaceID.Text, out string placeCode, out string placeIdFromPrc))
+            {
+                if (!string.IsNullOrWhiteSpace(placeCode)) privateCode = placeCode;
+                if (!string.IsNullOrWhiteSpace(placeIdFromPrc)) PlaceID.Text = placeIdFromPrc;
+            }
+
+            if (TryParsePrcJoinInput(JobID.Text, out string jobCode, out string jobPlaceFromPrc))
+            {
+                if (!string.IsNullOrWhiteSpace(jobCode)) privateCode = jobCode;
+                if (!string.IsNullOrWhiteSpace(jobPlaceFromPrc)) PlaceID.Text = jobPlaceFromPrc;
+            }
 
             Game G = RecentGames.FirstOrDefault(RG => RG.Details.filteredName == PlaceID.Text);
 
@@ -1473,7 +1566,16 @@ namespace RBX_Alt_Manager
 
             PlaceID.Text = IDMatch.Success ? IDMatch.Groups[1].Value : Regex.Replace(PlaceID.Text, "[^0-9]", "");
 
+            PrivateCode.Text = privateCode;
+
+            if (!string.IsNullOrEmpty(privateCode))
+                JobID.Text = string.Empty;
+
             bool VIPServer = JobID.TextLength > 4 && JobID.Text.Substring(0, 4) == "VIP:";
+            string launchData = BuildPrcLaunchData(privateCode);
+
+            if (!string.IsNullOrEmpty(launchData))
+                VIPServer = false;
 
             if (!long.TryParse(PlaceID.Text, out long PlaceId)) return;
 
@@ -1490,11 +1592,11 @@ namespace RBX_Alt_Manager
                 {
                     LauncherToken = new CancellationTokenSource();
 
-                    await LaunchAccounts(SelectedAccounts, PlaceId, VIPServer ? JobID.Text.Substring(4) : JobID.Text, false, VIPServer);
+                    await LaunchAccounts(SelectedAccounts, PlaceId, VIPServer ? JobID.Text.Substring(4) : JobID.Text, false, VIPServer, launchData);
                 }
                 else if (SelectedAccount != null)
                 {
-                    string res = await SelectedAccount.JoinServer(PlaceId, VIPServer ? JobID.Text.Substring(4) : JobID.Text, false, VIPServer);
+                    string res = await SelectedAccount.JoinServer(PlaceId, VIPServer ? JobID.Text.Substring(4) : JobID.Text, false, VIPServer, false, launchData);
 
                     if (!res.Contains("Success"))
                         MessageBox.Show(res);
@@ -1600,11 +1702,13 @@ namespace RBX_Alt_Manager
             }
 
             AltManagerWS?.Stop();
+            AntiAfkService.Stop();
 
             if (PlaceID == null || string.IsNullOrEmpty(PlaceID.Text)) return;
 
             General.Set("SavedPlaceId", PlaceID.Text);
             General.Set("SavedFollowUser", UserID.Text);
+            General.Set("SavedPrivateCode", PrivateCode.Text);
             IniSettings.Save("RAMSettings.ini");
         }
 
@@ -1873,7 +1977,7 @@ namespace RBX_Alt_Manager
                 List<Account> HasSaved = new List<Account>();
 
                 foreach (Account account in AccountsList)
-                    if (account.Fields.ContainsKey("SavedPlaceId") || account.Fields.ContainsKey("SavedJobId"))
+                    if (account.Fields.ContainsKey("SavedPlaceId") || account.Fields.ContainsKey("SavedJobId") || account.Fields.ContainsKey("SavedPrivateCode"))
                         HasSaved.Add(account);
 
                 if (HasSaved.Count > 0 && MessageBox.Show($"Are you sure you want to remove {HasSaved.Count} saved Place Ids?", "Roblox Account Manager", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.OK)
@@ -1886,10 +1990,11 @@ namespace RBX_Alt_Manager
 
             foreach (Account account in AccountsView.SelectedObjects)
             {
-                if (string.IsNullOrEmpty(PlaceID.Text) && string.IsNullOrEmpty(JobID.Text))
+                if (string.IsNullOrEmpty(PlaceID.Text) && string.IsNullOrEmpty(JobID.Text) && string.IsNullOrEmpty(PrivateCode.Text))
                 {
                     account.RemoveField("SavedPlaceId");
                     account.RemoveField("SavedJobId");
+                    account.RemoveField("SavedPrivateCode");
 
                     return;
                 }
@@ -1901,6 +2006,7 @@ namespace RBX_Alt_Manager
 
                 account.SetField("SavedPlaceId", PlaceId);
                 account.SetField("SavedJobId", JobID.Text);
+                account.SetField("SavedPrivateCode", PrivateCode.Text);
             }
         }
 
@@ -2003,7 +2109,7 @@ namespace RBX_Alt_Manager
             }
         }
 
-        private async Task LaunchAccounts(List<Account> Accounts, long PlaceID, string JobID, bool FollowUser = false, bool VIPServer = false)
+        private async Task LaunchAccounts(List<Account> Accounts, long PlaceID, string JobID, bool FollowUser = false, bool VIPServer = false, string LaunchData = "")
         {
             int Delay = General.Exists("AccountJoinDelay") ? General.Get<int>("AccountJoinDelay") : 8;
 
@@ -2016,14 +2122,23 @@ namespace RBX_Alt_Manager
 
                 long PlaceId = PlaceID;
                 string JobId = JobID;
+                string launchData = LaunchData;
+                bool joinVip = VIPServer;
 
                 if (!FollowUser)
                 {
                     if (!string.IsNullOrEmpty(account.GetField("SavedPlaceId")) && long.TryParse(account.GetField("SavedPlaceId"), out long PID)) PlaceId = PID;
                     if (!string.IsNullOrEmpty(account.GetField("SavedJobId"))) JobId = account.GetField("SavedJobId");
+                    if (!string.IsNullOrEmpty(account.GetField("SavedPrivateCode"))) launchData = BuildPrcLaunchData(account.GetField("SavedPrivateCode"));
+
+                    if (!string.IsNullOrEmpty(launchData))
+                    {
+                        JobId = string.Empty;
+                        joinVip = false;
+                    }
                 }
 
-                await account.JoinServer(PlaceId, JobId, FollowUser, VIPServer);
+                await account.JoinServer(PlaceId, JobId, FollowUser, joinVip, false, launchData);
 
                 if (AsyncJoin)
                 {

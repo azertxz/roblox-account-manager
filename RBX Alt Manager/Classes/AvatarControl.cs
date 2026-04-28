@@ -18,7 +18,27 @@ namespace RBX_Alt_Manager.Classes
             AvatarName.Text = Name;
         }
 
-        private async void AvatarControl_Load(object sender, EventArgs e) => AvatarImage.LoadAsync(await Batch.GetImage(OutfitID, "Outfit", "420x420"));
+        private async void AvatarControl_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                string imageUrl = await Batch.GetImage(OutfitID, "Outfit", "420x420");
+
+                if (string.IsNullOrWhiteSpace(imageUrl)
+                    || string.Equals(imageUrl, "UNK", StringComparison.OrdinalIgnoreCase)
+                    || !Uri.TryCreate(imageUrl, UriKind.Absolute, out _))
+                {
+                    Program.Logger.Error($"Invalid outfit image URL for {OutfitID}: {imageUrl ?? "(null)"}");
+                    return;
+                }
+
+                AvatarImage.LoadAsync(imageUrl);
+            }
+            catch (Exception ex)
+            {
+                Program.Logger.Error($"Failed loading outfit image for {OutfitID}: {ex}");
+            }
+        }
 
         private async void wearAvatarToolStripMenuItem_Click(object sender, EventArgs e)
         {

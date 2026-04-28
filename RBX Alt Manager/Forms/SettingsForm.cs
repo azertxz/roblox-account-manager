@@ -1,8 +1,10 @@
 ﻿using Microsoft.Win32;
+using RBX_Alt_Manager.Classes;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -48,8 +50,26 @@ namespace RBX_Alt_Manager.Forms
 
             PresenceCB.Checked = AccountManager.General.Get<bool>("ShowPresence");
             PresenceUpdateRateNum .Value = AccountManager.General.Get<int>("PresenceUpdateRate");
+            AntiAfkCB.Checked = AccountManager.General.Get<bool>("EnableAntiAfk");
+            AntiAfkBackgroundCB.Checked = AccountManager.General.Get<bool>("AntiAfkUseBackground");
+            AntiAfkMinNum.Value = Math.Max(AntiAfkMinNum.Minimum, Math.Min(AntiAfkMinNum.Maximum, AccountManager.General.Get<int>("AntiAfkMinInterval")));
+            AntiAfkMaxNum.Value = Math.Max(AntiAfkMaxNum.Minimum, Math.Min(AntiAfkMaxNum.Maximum, AccountManager.General.Get<int>("AntiAfkMaxInterval")));
             UnlockFPSCB.Checked = AccountManager.General.Get<bool>("UnlockFPS");
             MaxFPSValue.Value = AccountManager.General.Get<int>("MaxFPSValue");
+            AutoOptimizeCB.Checked = AccountManager.General.Get<bool>("EnableAutoOptimization");
+            OptimizationApplyOnStartupCB.Checked = AccountManager.General.Get<bool>("OptimizationApplyOnStartup");
+            OptimizationReapplyAfterUpdateCB.Checked = AccountManager.General.Get<bool>("OptimizationReapplyAfterClientUpdate");
+
+            string profile = AccountManager.General.Exists("OptimizationProfile") ? AccountManager.General.Get<string>("OptimizationProfile") : "Balanced";
+
+            if (OptimizationProfileCombo.Items.Contains(profile))
+                OptimizationProfileCombo.SelectedItem = profile;
+            else
+                OptimizationProfileCombo.SelectedItem = "Balanced";
+
+            UpdateAntiAfkControlState();
+            UpdateOptimizationControlState();
+            RefreshOptimizationStatusBox();
 
             if (AccountManager.General.Exists("CustomClientSettings") && File.Exists(AccountManager.General.Get<string>("CustomClientSettings")))
             {
@@ -286,6 +306,97 @@ namespace RBX_Alt_Manager.Forms
 
         #region Miscellaneous
 
+        private void UpdateOptimizationControlState()
+        {
+            bool enabled = AutoOptimizeCB.Checked && !OverrideWithCustomCB.Checked;
+
+            OptimizationProfileLabel.Enabled = enabled;
+            OptimizationProfileCombo.Enabled = enabled;
+            OptimizationApplyOnStartupCB.Enabled = enabled;
+            OptimizationReapplyAfterUpdateCB.Enabled = enabled;
+            OptimizationApplyNowButton.Enabled = enabled;
+            OptimizationRestoreButton.Enabled = !OverrideWithCustomCB.Checked;
+        }
+
+        private void SaveOptimizationSettings()
+        {
+            string profile = OptimizationProfileCombo.SelectedItem?.ToString() ?? "Balanced";
+
+            AccountManager.General.Set("EnableAutoOptimization", AutoOptimizeCB.Checked ? "true" : "false");
+            AccountManager.General.Set("OptimizationProfile", profile);
+            AccountManager.General.Set("OptimizationApplyOnStartup", OptimizationApplyOnStartupCB.Checked ? "true" : "false");
+            AccountManager.General.Set("OptimizationReapplyAfterClientUpdate", OptimizationReapplyAfterUpdateCB.Checked ? "true" : "false");
+            AccountManager.IniSettings.Save("RAMSettings.ini");
+        }
+
+        private void RefreshOptimizationStatusBox(string reportHeader = null, OptimizationApplyReport report = null)
+        {
+            OptimizationService.Initialize();
+            var providerInfo = OptimizationService.GetProviderInfo();
+
+            OptimizationBackendValueLabel.Text = providerInfo.DisplayName;
+
+            string capabilities = string.Join(", ", providerInfo.Capabilities.ToStatusList().Where(x => x.Supported).Select(x => x.Name));
+            if (string.IsNullOrEmpty(capabilities)) capabilities = "None";
+
+            string statusText =
+                $"Backend: {providerInfo.DisplayName} ({providerInfo.Backend}){Environment.NewLine}" +
+                $"Profile: {OptimizationProfileCombo.SelectedItem}{Environment.NewLine}" +
+                $"Capabilities: {capabilities}{Environment.NewLine}" +
+                $"Detected: {providerInfo.SelectionReason}{Environment.NewLine}" +
+                $"Last Apply: {AccountManager.General.Get<string>("OptimizationLastApplyStatus")} | {AccountManager.General.Get<string>("OptimizationLastApplyUtc")}{Environment.NewLine}" +
+                $"Last Reason: {AccountManager.General.Get<string>("OptimizationLastApplyReason")}";
+
+            if (!string.IsNullOrEmpty(reportHeader) && report != null)
+            {
+                string resultLines = report.Results.Count == 0
+                    ? "(no per-setting changes)"
+                    : string.Join(Environment.NewLine, report.Results.Select(x => $"- {x.Name}: {x.State} ({x.Detail})"));
+
+                statusText +=
+                    $"{Environment.NewLine}{Environment.NewLine}{reportHeader}{Environment.NewLine}" +
+                    $"Success: {report.Success}{Environment.NewLine}" +
+                    $"Reason: {report.Reason}{Environment.NewLine}" +
+                    $"Results:{Environment.NewLine}{resultLines}";
+            }
+
+            if (OverrideWithCustomCB.Checked)
+                statusText += $"{Environment.NewLine}{Environment.NewLine}Custom ClientAppSettings is enabled, so custom file overrides optimization apply behavior.";
+
+            OptimizationStatusBox.Text = statusText;
+        }
+
+        private void UpdateAntiAfkControlState()
+        {
+            bool enabled = AntiAfkCB.Checked;
+
+            AntiAfkMinLabel.Enabled = enabled;
+            AntiAfkMinNum.Enabled = enabled;
+            AntiAfkMaxLabel.Enabled = enabled;
+            AntiAfkMaxNum.Enabled = enabled;
+            AntiAfkBackgroundCB.Enabled = enabled;
+        }
+
+        private void SaveAndApplyAntiAfkSettings()
+        {
+            int minInterval = (int)AntiAfkMinNum.Value;
+            int maxInterval = (int)AntiAfkMaxNum.Value;
+
+            if (minInterval > maxInterval)
+            {
+                maxInterval = minInterval;
+                AntiAfkMaxNum.Value = maxInterval;
+            }
+
+            AccountManager.General.Set("EnableAntiAfk", AntiAfkCB.Checked ? "true" : "false");
+            AccountManager.General.Set("AntiAfkMinInterval", minInterval.ToString());
+            AccountManager.General.Set("AntiAfkMaxInterval", maxInterval.ToString());
+            AccountManager.General.Set("AntiAfkUseBackground", AntiAfkBackgroundCB.Checked ? "true" : "false");
+            AccountManager.IniSettings.Save("RAMSettings.ini");
+
+            AntiAfkService.Configure(AntiAfkCB.Checked, minInterval, maxInterval, AntiAfkBackgroundCB.Checked);
+        }
+
         private void PresenceCB_CheckedChanged(object sender, EventArgs e)
         {
             if (!SettingsLoaded) return;
@@ -300,6 +411,89 @@ namespace RBX_Alt_Manager.Forms
 
             AccountManager.General.Set("PresenceUpdateRate", PresenceUpdateRateNum.Value.ToString());
             AccountManager.IniSettings.Save("RAMSettings.ini");
+        }
+
+        private void AntiAfkCB_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateAntiAfkControlState();
+
+            if (!SettingsLoaded) return;
+
+            SaveAndApplyAntiAfkSettings();
+        }
+
+        private void AntiAfkMinNum_ValueChanged(object sender, EventArgs e)
+        {
+            if (!SettingsLoaded) return;
+
+            if (AntiAfkMinNum.Value > AntiAfkMaxNum.Value)
+                AntiAfkMaxNum.Value = AntiAfkMinNum.Value;
+
+            SaveAndApplyAntiAfkSettings();
+        }
+
+        private void AntiAfkMaxNum_ValueChanged(object sender, EventArgs e)
+        {
+            if (!SettingsLoaded) return;
+
+            if (AntiAfkMaxNum.Value < AntiAfkMinNum.Value)
+                AntiAfkMinNum.Value = AntiAfkMaxNum.Value;
+
+            SaveAndApplyAntiAfkSettings();
+        }
+
+        private void AntiAfkBackgroundCB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!SettingsLoaded) return;
+
+            SaveAndApplyAntiAfkSettings();
+        }
+
+        private void AutoOptimizeCB_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateOptimizationControlState();
+
+            if (!SettingsLoaded) return;
+
+            SaveOptimizationSettings();
+            RefreshOptimizationStatusBox();
+        }
+
+        private void OptimizationProfileCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!SettingsLoaded) return;
+
+            SaveOptimizationSettings();
+            RefreshOptimizationStatusBox();
+        }
+
+        private void OptimizationApplyOnStartupCB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!SettingsLoaded) return;
+
+            SaveOptimizationSettings();
+            RefreshOptimizationStatusBox();
+        }
+
+        private void OptimizationReapplyAfterUpdateCB_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!SettingsLoaded) return;
+
+            SaveOptimizationSettings();
+            RefreshOptimizationStatusBox();
+        }
+
+        private void OptimizationApplyNowButton_Click(object sender, EventArgs e)
+        {
+            SaveOptimizationSettings();
+            OptimizationApplyReport report = OptimizationService.ApplyConfiguredProfile("manual");
+            RefreshOptimizationStatusBox("Manual apply result", report);
+        }
+
+        private void OptimizationRestoreButton_Click(object sender, EventArgs e)
+        {
+            OptimizationApplyReport report = OptimizationService.RestoreDefaults();
+            RefreshOptimizationStatusBox("Restore result", report);
         }
 
         private void UnlockFPSCB_CheckedChanged(object sender, EventArgs e)
@@ -323,6 +517,7 @@ namespace RBX_Alt_Manager.Forms
             if (!SettingsLoaded) return;
 
             UnlockFPSCB.Enabled = !OverrideWithCustomCB.Checked;
+            UpdateOptimizationControlState();
 
             void Remove()
             {
@@ -351,6 +546,7 @@ namespace RBX_Alt_Manager.Forms
                 Remove();
             
             AccountManager.IniSettings.Save("RAMSettings.ini");
+            RefreshOptimizationStatusBox();
         }
 
         private void ForceUpdateButton_Click(object sender, EventArgs e)

@@ -16,7 +16,7 @@ Useful for games that require grinding off other players, or storage accounts th
 
 You are welcome to edit the code and create pull requests if it'll benefit this project.
 
-Multiple Roblox Instances is built into the account manager but [must be manually enabled](https://github.com/azertxz/roblox-account-manager/blob/master/README.md#q-how-do-i-enable-multi-roblox).
+Multiple Roblox Instances is built into the account manager and is automatically enabled.
 
 Report bugs in issues or join Discord: https://discord.gg/calf
 
@@ -30,37 +30,19 @@ Beware of the risks that you are taking if you accidentally send something to so
 If you ever want a friend to join a game using your account, make sure you have the PlaceId and JobId correctly entered, then right click an account, and click "Copy rbx-player link", DO NOT do this if someone asks you for it.
 
 # Download
-To install this, head over to the [Releases](https://github.com/azertxz/roblox-account-manager/releases) section and download the latest zip, extract the files into a folder, and run RBX Alt Manager.exe.
+To install this, head over to the [Releases](https://github.com/azertxz/roblox-account-manager/releases) section and download the latest zip, extract the files into a folder, and run Roblox Account Manager.exe.
 
-Quick links for staff:
+Quick links:
 - Latest release page: https://github.com/azertxz/roblox-account-manager/releases/latest
 - Direct latest download (keep this filename the same every release): https://github.com/azertxz/roblox-account-manager/releases/latest/download/Calf.Account.Manager.zip
 
 If the application isn't starting or not working, make sure to install the [Latest .NET Framework](https://dotnet.microsoft.com/download/dotnet-framework).
 Still having issues? Download and install [vcredist](https://aka.ms/vs/16/release/vc_redist.x86.exe)
 
-# Developer API
-To view the documentation, [click here](https://github.com/azertxz/roblox-account-manager/wiki).
-Change the webserver port if you are planning on using any dangerous functions!
-Be careful executing random scripts when having dangerous settings enabled.
-
 # Frequently Asked Questions
 ## **Q:** Why is this program detected as a virus?
 
 **A:** Open source programs such as this program are commonly detected as viruses because actual malware may be using the same libraries as this one. For example, account manager may be detected as a RAT because of the Account Control feature, this feature uses [websockets](https://github.com/azertxz/roblox-account-manager/blob/master/RBX%20Alt%20Manager/Nexus/WebsocketServer.cs) to connect to clients which is the same way actual malware may use to connect maliciously to someone else's computer. If you'd like, you can download [visual studio](https://visualstudio.microsoft.com/downloads/) yourself (it's free) and compile this program on your own, you may even get the same virus detections as the public release.
-
-
-## **Q:** How do I enable multi-roblox?
-
-**A:** Open the settings menu by clicking the gear/cog icon in the top right, in the `General` tab, you will see a checkbox for `Multi Roblox`, make sure you have Roblox closed, then check the checkbox.
-
-
-## **Q:** Why was multi-roblox disabled by default?
-
-**A:** A byfron developer has stated that using multiple clients may be considered as malicious behavior, so I have decided to disable mutli-roblox by default and instead have users enable the option manually at their own risk.
-![2023-05-06 23_58_33-Clipboard](https://user-images.githubusercontent.com/11778654/236662271-ce6bc2c8-7690-436a-97d0-1cfea56b541f.png)
-
-
 
 ## **Q:** Why am I getting CefSharp.Core.Runtime.dll/Object reference not set errors, how do I fix it?
 
@@ -84,17 +66,12 @@ Be careful executing random scripts when having dangerous settings enabled.
 
 ## **Q:** Can I join vip servers using alt manager?
 
-**A:** Yes you can, just make sure the place id is the same as the game you're trying to join, then paste the whole vip server link into the Job ID box and press Join Server
-
-
-## **Q:** Are there docs for the API?
-
-**A:** Yes, there are docs: https://github.com/azertxz/roblox-account-manager/wiki
+**A:** Yes. For standard Roblox VIP/private links, paste the full link and press `Join Server`. For ERLC private servers, use `Place ID` + `PRC Code` (for example code `calf`).
 
 
 ## **Q:** My anti virus detects this program as a virus. Should I not use it?
 
-**A:** No. This program is in no way malicious, it's source code is fully available & trusted by a lot of people in the community. Some anti-virus programs may detect Account Manager as malicious because of the auto update function (a similar thing happens with Roblox Studio Mod Manager as well)
+**A:** No. This program is in no way malicious, its source code is fully available & trusted by a lot of people in the community. Some anti-virus programs may detect Account Manager as malicious because of the auto update function (a similar thing happens with Roblox Studio Mod Manager as well)
 
 
 ## **Q:** Can you use this on Mac?
@@ -104,7 +81,7 @@ Be careful executing random scripts when having dangerous settings enabled.
 
 ## **Q:** You should add ${feature}.
 
-**A:** If you have a idea or a request for a feature you can submit such ideas/requests in suggestions
+**A:** If you have a idea or a request for a feature you can submit such ideas/requests in my Discord DMs (userID: 793162371702194207)
 
 
 ## **Q:** I’ve encountered a bug/issue on this software
@@ -120,7 +97,7 @@ Make sure you click "Open Details" before screenshotting. Please make sure your 
 
 ## **Q:** Adding an account doesn't work
 
-**A:** Restart the program, this issue will be fixed next update
+**A:** Restart the program first. If it still fails, open issue details, collect the error text, and report it with screenshots/log output in Discord or GitHub issues.
 
 
 ## **Q:** Can you get banned for using this?
@@ -135,7 +112,7 @@ Make sure you click "Open Details" before screenshotting. Please make sure your 
 | :--- | :---: | ---: |
 | Account Encryption | All your account data is locally encrypted using your computer as the **password/key** meaning if someone else gets a hold of your account data, they will **NOT** be able to decrypt it unless you decrypted it yourself and shared it | **DO NOT SHARE YOUR `AccountData.json` FILE AT ALL |
 | Password Encryption | Use a password to encrypt your data | This is recommended as it allows you store your data safely in google drive/similar and won't get corrupted due to you switching computers |
-| [Multi Roblox](https://github.com/azertxz/roblox-account-manager/blob/master/README.md#q-how-do-i-enable-multi-roblox) | [DISABLED BY DEFAULT, READ FAQ] RAM comes with a built-in multi Roblox allowing multiple Roblox clients to be open at once | **If this doesn't work for you, make sure no Roblox processes are running in the background by checking in task manager, then restart RAM** |
+| [Multi Roblox](https://github.com/azertxz/roblox-account-manager/blob/master/README.md#q-how-do-i-enable-multi-roblox) | RAM comes with a built-in multi Roblox allowing multiple Roblox clients to be open at once | **If this doesn't work for you, make sure no Roblox processes are running in the background by checking in task manager, then restart RAM** |
 | Load Region | See where a server is located and get an accurate ping reading | Right click a server in the `Server List`, then click `Load Region` **(Requires a valid account to be selected in the main window)** |
 | Server List | See a game's servers, including the servers' data such as player count and server ping | Click `Server List` on the right side of the main window |
 | [Join Small Servers](https://youtu.be/Red66cV6vVI) | Easily join small servers in games that use lobby starter places to teleport you to another game | Insert the actual game's PlaceId into the text box next to `Refresh` in the `Server List`, click `Refresh`, then right click a server and click `Join Game`, you will hear a beep if successful, once you hear that beep, you can join the main game |
@@ -147,9 +124,10 @@ Make sure you click "Open Details" before screenshotting. Please make sure your 
 | Favorite Games | Add your favorite games to a list you can easily navigate to | Click `Server List`, then `Favorites` |
 | Recent Games | Saves your recently played games into the `PlaceId` text box | After joining a game, that game will be added to the recent games list, which you can then quickly load up by hovering over the clock icon above the `PlaceId` text box or by typing the game's name into the `PlaceId` text box in the main window |
 | Open Browser | Open a browser window using the selected account, allowing you to various settings | Click `Open Browser` in the main window while having an account selected |
-| Join VIP Servers |  | Simply place your entire VIP server link into the `PlaceId` text box and RAM will handle the rest |
+| Join VIP/Private Servers | Supports regular Roblox VIP links and ERLC private server code flow | Use a VIP link in `PlaceId` as before, or set `Place ID` + `PRC Code` to join ERLC private servers |
 | Shuffle JobId | Selects a random JobId for every account everytime you press "Join Server" unless you have a JobId set | Click the shuffle icon to toggle JobId Shuffler |
-| Save PlaceId & JobId | Save specific `PlaceId`s and/or `JobId`s to specific accounts | Once you enter your desired PlaceId and/or VIP links, click the `Save` icon next to the `JobId` text box |
+| Save PlaceId, JobId & PRC Code | Save specific `PlaceId`s, `JobId`s, and `PRC Code`s to specific accounts | Once you enter your desired join values, click the `Save` icon next to the `JobId` text box |
+| Anti-AFK | Automatically sends periodic input to Roblox clients to reduce AFK kicks | Enable in Settings -> `Miscellaneous` (`Enable Anti-AFK`), set interval range, and optionally enable `Use background mode (beta)` |
 | Player Finder | Find a player even if their follows are off as long as you know what game they are in | In the `Server List` window, put a player's username into the `Username` text box, then click search. **This may take a while to load and may be patched in the near future** |
 | Universe Viewer | View a game's universe | Open `Utilities`, then click `Universe` |
 | Outfit Viewer | View other player's outfits and even wear their outfits | Open `Utilities`, then click `Outfits` |
@@ -159,7 +137,6 @@ Make sure you click "Open Details" before screenshotting. Please make sure your 
 | Save Passwords | Upon logging into an account, RAM will automatically save that accounts password which can then be copied by right clicking the account, then selecting `Copy Password` | This can be disabled by clicking the settings button (gear cog in top-right corner), the unchecking `Save Passwords` |
 | Themes | Customize RAM to your liking (P.S. I know it's very ugly, not much I can do about it with WinForms) | Click `Edit Theme` in the main window |
 | Developer Mode | Enable hidden features not available to normal users for safety reasons | Click the settings button (gear cog in top-right corner), click `Developer`, then check the `Enable Developer Mode` box |
-| Local Web API | Easily use many RAM features by making a simple http request | [Documentation](https://github.com/azertxz/roblox-account-manager/wiki) |
 | Account Control | Control your in-game accounts using the `Account Control` window in RAM | Click `Account Control` in the main window - [Documentation](https://github.com/azertxz/roblox-account-manager/blob/master/RBX%20Alt%20Manager/Nexus/NexusDocs.md) |
 | Import Cookies | Import accounts using their .ROBLOSECURITY cookies | You can drag and drop one or multiple cookies directly into the program, or you can enable developer mode and use the `Import` window |
 | FPS Unlocker | Unlocks the Roblox client's FPS using Roblox's ClientAppSettings.json | Settings can be found by clicking the settings cog, then miscellaneous |

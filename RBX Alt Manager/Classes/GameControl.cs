@@ -29,9 +29,17 @@ namespace RBX_Alt_Manager.Classes
 
                 if (Disposing) return;
 
-                this.InvokeIfRequired(() => GameName.Text = Game.Details.name);
-                
-                GameImage.LoadAsync(Game.ImageUrl);
+                this.InvokeIfRequired(() =>
+                {
+                    GameName.Text = Game.Details.name;
+
+                    if (string.IsNullOrWhiteSpace(Game.ImageUrl)
+                        || string.Equals(Game.ImageUrl, "UNK", StringComparison.OrdinalIgnoreCase)
+                        || !Uri.TryCreate(Game.ImageUrl, UriKind.Absolute, out _))
+                        return;
+
+                    GameImage.LoadAsync(Game.ImageUrl);
+                });
             });
         }
 

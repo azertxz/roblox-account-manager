@@ -379,8 +379,10 @@
       <DependentUpon>AvatarControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Batch.cs" />
+    <Compile Include="Classes\AntiAfkService.cs" />
     <Compile Include="Classes\AccountBrowser.cs" />
     <Compile Include="Classes\ClientSettingsPatcher.cs" />
+    <Compile Include="Classes\OptimizationService.cs" />
     <Compile Include="Classes\Cryptography.cs" />
     <Compile Include="Classes\MenuButton.cs">
       <SubType>Component</SubType>

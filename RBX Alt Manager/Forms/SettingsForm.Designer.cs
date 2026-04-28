@@ -73,6 +73,23 @@ namespace RBX_Alt_Manager.Forms
             this.PresenceCB = new System.Windows.Forms.CheckBox();
             this.PresenceUpdateLabel = new System.Windows.Forms.Label();
             this.PresenceUpdateRateNum = new System.Windows.Forms.NumericUpDown();
+            this.AntiAfkCB = new System.Windows.Forms.CheckBox();
+            this.AntiAfkBackgroundCB = new System.Windows.Forms.CheckBox();
+            this.AntiAfkMinLabel = new System.Windows.Forms.Label();
+            this.AntiAfkMinNum = new System.Windows.Forms.NumericUpDown();
+            this.AntiAfkMaxLabel = new System.Windows.Forms.Label();
+            this.AntiAfkMaxNum = new System.Windows.Forms.NumericUpDown();
+            this.OptimizationHeaderLabel = new System.Windows.Forms.Label();
+            this.AutoOptimizeCB = new System.Windows.Forms.CheckBox();
+            this.OptimizationProfileLabel = new System.Windows.Forms.Label();
+            this.OptimizationProfileCombo = new System.Windows.Forms.ComboBox();
+            this.OptimizationApplyOnStartupCB = new System.Windows.Forms.CheckBox();
+            this.OptimizationReapplyAfterUpdateCB = new System.Windows.Forms.CheckBox();
+            this.OptimizationBackendLabel = new System.Windows.Forms.Label();
+            this.OptimizationBackendValueLabel = new System.Windows.Forms.Label();
+            this.OptimizationApplyNowButton = new System.Windows.Forms.Button();
+            this.OptimizationRestoreButton = new System.Windows.Forms.Button();
+            this.OptimizationStatusBox = new System.Windows.Forms.TextBox();
             this.UnlockFPSCB = new System.Windows.Forms.CheckBox();
             this.FPSCapLabel = new System.Windows.Forms.Label();
             this.MaxFPSValue = new System.Windows.Forms.NumericUpDown();
@@ -90,6 +107,8 @@ namespace RBX_Alt_Manager.Forms
             this.MiscellaneousTab.SuspendLayout();
             this.MiscellaneousFlowPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PresenceUpdateRateNum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AntiAfkMinNum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AntiAfkMaxNum)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaxFPSValue)).BeginInit();
             this.SuspendLayout();
             // 
@@ -584,11 +603,29 @@ namespace RBX_Alt_Manager.Forms
             this.MiscellaneousFlowPanel.Controls.Add(this.PresenceCB);
             this.MiscellaneousFlowPanel.Controls.Add(this.PresenceUpdateLabel);
             this.MiscellaneousFlowPanel.Controls.Add(this.PresenceUpdateRateNum);
+            this.MiscellaneousFlowPanel.Controls.Add(this.AntiAfkCB);
+            this.MiscellaneousFlowPanel.Controls.Add(this.AntiAfkBackgroundCB);
+            this.MiscellaneousFlowPanel.Controls.Add(this.AntiAfkMinLabel);
+            this.MiscellaneousFlowPanel.Controls.Add(this.AntiAfkMinNum);
+            this.MiscellaneousFlowPanel.Controls.Add(this.AntiAfkMaxLabel);
+            this.MiscellaneousFlowPanel.Controls.Add(this.AntiAfkMaxNum);
+            this.MiscellaneousFlowPanel.Controls.Add(this.OptimizationHeaderLabel);
+            this.MiscellaneousFlowPanel.Controls.Add(this.AutoOptimizeCB);
+            this.MiscellaneousFlowPanel.Controls.Add(this.OptimizationProfileLabel);
+            this.MiscellaneousFlowPanel.Controls.Add(this.OptimizationProfileCombo);
+            this.MiscellaneousFlowPanel.Controls.Add(this.OptimizationApplyOnStartupCB);
+            this.MiscellaneousFlowPanel.Controls.Add(this.OptimizationReapplyAfterUpdateCB);
+            this.MiscellaneousFlowPanel.Controls.Add(this.OptimizationBackendLabel);
+            this.MiscellaneousFlowPanel.Controls.Add(this.OptimizationBackendValueLabel);
+            this.MiscellaneousFlowPanel.Controls.Add(this.OptimizationApplyNowButton);
+            this.MiscellaneousFlowPanel.Controls.Add(this.OptimizationRestoreButton);
+            this.MiscellaneousFlowPanel.Controls.Add(this.OptimizationStatusBox);
             this.MiscellaneousFlowPanel.Controls.Add(this.UnlockFPSCB);
             this.MiscellaneousFlowPanel.Controls.Add(this.FPSCapLabel);
             this.MiscellaneousFlowPanel.Controls.Add(this.MaxFPSValue);
             this.MiscellaneousFlowPanel.Controls.Add(this.OverrideWithCustomCB);
             this.MiscellaneousFlowPanel.Controls.Add(this.ForceUpdateButton);
+            this.MiscellaneousFlowPanel.AutoScroll = true;
             this.MiscellaneousFlowPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MiscellaneousFlowPanel.Location = new System.Drawing.Point(3, 3);
             this.MiscellaneousFlowPanel.Name = "MiscellaneousFlowPanel";
@@ -643,10 +680,234 @@ namespace RBX_Alt_Manager.Forms
             0});
             this.PresenceUpdateRateNum.ValueChanged += new System.EventHandler(this.PresenceUpdateRateNum_ValueChanged);
             // 
+            // AntiAfkCB
+            // 
+            this.AntiAfkCB.AutoSize = true;
+            this.MiscellaneousFlowPanel.SetFlowBreak(this.AntiAfkCB, true);
+            this.AntiAfkCB.Location = new System.Drawing.Point(15, 38);
+            this.AntiAfkCB.Name = "AntiAfkCB";
+            this.AntiAfkCB.Size = new System.Drawing.Size(99, 17);
+            this.AntiAfkCB.TabIndex = 17;
+            this.AntiAfkCB.Text = "Enable Anti-AFK";
+            this.AntiAfkCB.UseVisualStyleBackColor = true;
+            this.AntiAfkCB.CheckedChanged += new System.EventHandler(this.AntiAfkCB_CheckedChanged);
+            // 
+            // AntiAfkBackgroundCB
+            // 
+            this.AntiAfkBackgroundCB.AutoSize = true;
+            this.MiscellaneousFlowPanel.SetFlowBreak(this.AntiAfkBackgroundCB, true);
+            this.AntiAfkBackgroundCB.Location = new System.Drawing.Point(15, 58);
+            this.AntiAfkBackgroundCB.Name = "AntiAfkBackgroundCB";
+            this.AntiAfkBackgroundCB.Size = new System.Drawing.Size(183, 17);
+            this.AntiAfkBackgroundCB.TabIndex = 22;
+            this.AntiAfkBackgroundCB.Text = "Use background mode (beta)";
+            this.AntiAfkBackgroundCB.UseVisualStyleBackColor = true;
+            this.AntiAfkBackgroundCB.CheckedChanged += new System.EventHandler(this.AntiAfkBackgroundCB_CheckedChanged);
+            // 
+            // AntiAfkMinLabel
+            // 
+            this.AntiAfkMinLabel.AutoSize = true;
+            this.AntiAfkMinLabel.Location = new System.Drawing.Point(15, 81);
+            this.AntiAfkMinLabel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
+            this.AntiAfkMinLabel.Name = "AntiAfkMinLabel";
+            this.AntiAfkMinLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.AntiAfkMinLabel.Size = new System.Drawing.Size(84, 13);
+            this.AntiAfkMinLabel.TabIndex = 18;
+            this.AntiAfkMinLabel.Text = "Min Interval (s)";
+            // 
+            // AntiAfkMinNum
+            // 
+            this.AntiAfkMinNum.Location = new System.Drawing.Point(105, 78);
+            this.AntiAfkMinNum.Margin = new System.Windows.Forms.Padding(3, 1, 15, 0);
+            this.AntiAfkMinNum.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.AntiAfkMinNum.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.AntiAfkMinNum.Name = "AntiAfkMinNum";
+            this.AntiAfkMinNum.Size = new System.Drawing.Size(56, 20);
+            this.AntiAfkMinNum.TabIndex = 19;
+            this.AntiAfkMinNum.Value = new decimal(new int[] {
+            75,
+            0,
+            0,
+            0});
+            this.AntiAfkMinNum.ValueChanged += new System.EventHandler(this.AntiAfkMinNum_ValueChanged);
+            // 
+            // AntiAfkMaxLabel
+            // 
+            this.AntiAfkMaxLabel.AutoSize = true;
+            this.AntiAfkMaxLabel.Location = new System.Drawing.Point(179, 81);
+            this.AntiAfkMaxLabel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 0);
+            this.AntiAfkMaxLabel.Name = "AntiAfkMaxLabel";
+            this.AntiAfkMaxLabel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.AntiAfkMaxLabel.Size = new System.Drawing.Size(87, 13);
+            this.AntiAfkMaxLabel.TabIndex = 20;
+            this.AntiAfkMaxLabel.Text = "Max Interval (s)";
+            // 
+            // AntiAfkMaxNum
+            // 
+            this.MiscellaneousFlowPanel.SetFlowBreak(this.AntiAfkMaxNum, true);
+            this.AntiAfkMaxNum.Location = new System.Drawing.Point(272, 78);
+            this.AntiAfkMaxNum.Margin = new System.Windows.Forms.Padding(3, 1, 3, 0);
+            this.AntiAfkMaxNum.Maximum = new decimal(new int[] {
+            3600,
+            0,
+            0,
+            0});
+            this.AntiAfkMaxNum.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.AntiAfkMaxNum.Name = "AntiAfkMaxNum";
+            this.AntiAfkMaxNum.Size = new System.Drawing.Size(56, 20);
+            this.AntiAfkMaxNum.TabIndex = 21;
+            this.AntiAfkMaxNum.Value = new decimal(new int[] {
+            240,
+            0,
+            0,
+            0});
+            this.AntiAfkMaxNum.ValueChanged += new System.EventHandler(this.AntiAfkMaxNum_ValueChanged);
+            // 
+            // OptimizationHeaderLabel
+            // 
+            this.OptimizationHeaderLabel.AutoSize = true;
+            this.MiscellaneousFlowPanel.SetFlowBreak(this.OptimizationHeaderLabel, true);
+            this.OptimizationHeaderLabel.Location = new System.Drawing.Point(15, 101);
+            this.OptimizationHeaderLabel.Margin = new System.Windows.Forms.Padding(3, 8, 3, 0);
+            this.OptimizationHeaderLabel.Name = "OptimizationHeaderLabel";
+            this.OptimizationHeaderLabel.Size = new System.Drawing.Size(95, 13);
+            this.OptimizationHeaderLabel.TabIndex = 23;
+            this.OptimizationHeaderLabel.Text = "Auto Optimization";
+            // 
+            // AutoOptimizeCB
+            // 
+            this.AutoOptimizeCB.AutoSize = true;
+            this.MiscellaneousFlowPanel.SetFlowBreak(this.AutoOptimizeCB, true);
+            this.AutoOptimizeCB.Location = new System.Drawing.Point(15, 117);
+            this.AutoOptimizeCB.Name = "AutoOptimizeCB";
+            this.AutoOptimizeCB.Size = new System.Drawing.Size(167, 17);
+            this.AutoOptimizeCB.TabIndex = 24;
+            this.AutoOptimizeCB.Text = "Enable Auto Optimization";
+            this.AutoOptimizeCB.UseVisualStyleBackColor = true;
+            this.AutoOptimizeCB.CheckedChanged += new System.EventHandler(this.AutoOptimizeCB_CheckedChanged);
+            // 
+            // OptimizationProfileLabel
+            // 
+            this.OptimizationProfileLabel.AutoSize = true;
+            this.OptimizationProfileLabel.Location = new System.Drawing.Point(15, 140);
+            this.OptimizationProfileLabel.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
+            this.OptimizationProfileLabel.Name = "OptimizationProfileLabel";
+            this.OptimizationProfileLabel.Size = new System.Drawing.Size(78, 13);
+            this.OptimizationProfileLabel.TabIndex = 25;
+            this.OptimizationProfileLabel.Text = "Profile Preset";
+            // 
+            // OptimizationProfileCombo
+            // 
+            this.MiscellaneousFlowPanel.SetFlowBreak(this.OptimizationProfileCombo, true);
+            this.OptimizationProfileCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.OptimizationProfileCombo.FormattingEnabled = true;
+            this.OptimizationProfileCombo.Items.AddRange(new object[] {
+            "Balanced",
+            "Performance",
+            "LowEnd",
+            "Custom"});
+            this.OptimizationProfileCombo.Location = new System.Drawing.Point(99, 137);
+            this.OptimizationProfileCombo.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
+            this.OptimizationProfileCombo.Name = "OptimizationProfileCombo";
+            this.OptimizationProfileCombo.Size = new System.Drawing.Size(121, 21);
+            this.OptimizationProfileCombo.TabIndex = 26;
+            this.OptimizationProfileCombo.SelectedIndexChanged += new System.EventHandler(this.OptimizationProfileCombo_SelectedIndexChanged);
+            // 
+            // OptimizationApplyOnStartupCB
+            // 
+            this.OptimizationApplyOnStartupCB.AutoSize = true;
+            this.MiscellaneousFlowPanel.SetFlowBreak(this.OptimizationApplyOnStartupCB, true);
+            this.OptimizationApplyOnStartupCB.Location = new System.Drawing.Point(15, 161);
+            this.OptimizationApplyOnStartupCB.Name = "OptimizationApplyOnStartupCB";
+            this.OptimizationApplyOnStartupCB.Size = new System.Drawing.Size(125, 17);
+            this.OptimizationApplyOnStartupCB.TabIndex = 27;
+            this.OptimizationApplyOnStartupCB.Text = "Apply on app startup";
+            this.OptimizationApplyOnStartupCB.UseVisualStyleBackColor = true;
+            this.OptimizationApplyOnStartupCB.CheckedChanged += new System.EventHandler(this.OptimizationApplyOnStartupCB_CheckedChanged);
+            // 
+            // OptimizationReapplyAfterUpdateCB
+            // 
+            this.OptimizationReapplyAfterUpdateCB.AutoSize = true;
+            this.MiscellaneousFlowPanel.SetFlowBreak(this.OptimizationReapplyAfterUpdateCB, true);
+            this.OptimizationReapplyAfterUpdateCB.Location = new System.Drawing.Point(15, 184);
+            this.OptimizationReapplyAfterUpdateCB.Name = "OptimizationReapplyAfterUpdateCB";
+            this.OptimizationReapplyAfterUpdateCB.Size = new System.Drawing.Size(184, 17);
+            this.OptimizationReapplyAfterUpdateCB.TabIndex = 28;
+            this.OptimizationReapplyAfterUpdateCB.Text = "Re-apply after Roblox updates";
+            this.OptimizationReapplyAfterUpdateCB.UseVisualStyleBackColor = true;
+            this.OptimizationReapplyAfterUpdateCB.CheckedChanged += new System.EventHandler(this.OptimizationReapplyAfterUpdateCB_CheckedChanged);
+            // 
+            // OptimizationBackendLabel
+            // 
+            this.OptimizationBackendLabel.AutoSize = true;
+            this.OptimizationBackendLabel.Location = new System.Drawing.Point(15, 207);
+            this.OptimizationBackendLabel.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
+            this.OptimizationBackendLabel.Name = "OptimizationBackendLabel";
+            this.OptimizationBackendLabel.Size = new System.Drawing.Size(50, 13);
+            this.OptimizationBackendLabel.TabIndex = 29;
+            this.OptimizationBackendLabel.Text = "Backend";
+            // 
+            // OptimizationBackendValueLabel
+            // 
+            this.MiscellaneousFlowPanel.SetFlowBreak(this.OptimizationBackendValueLabel, true);
+            this.OptimizationBackendValueLabel.AutoSize = true;
+            this.OptimizationBackendValueLabel.Location = new System.Drawing.Point(71, 207);
+            this.OptimizationBackendValueLabel.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
+            this.OptimizationBackendValueLabel.Name = "OptimizationBackendValueLabel";
+            this.OptimizationBackendValueLabel.Size = new System.Drawing.Size(50, 13);
+            this.OptimizationBackendValueLabel.TabIndex = 30;
+            this.OptimizationBackendValueLabel.Text = "Unknown";
+            // 
+            // OptimizationApplyNowButton
+            // 
+            this.OptimizationApplyNowButton.Location = new System.Drawing.Point(15, 223);
+            this.OptimizationApplyNowButton.Margin = new System.Windows.Forms.Padding(3, 3, 6, 3);
+            this.OptimizationApplyNowButton.Name = "OptimizationApplyNowButton";
+            this.OptimizationApplyNowButton.Size = new System.Drawing.Size(129, 23);
+            this.OptimizationApplyNowButton.TabIndex = 31;
+            this.OptimizationApplyNowButton.Text = "Apply Now";
+            this.OptimizationApplyNowButton.UseVisualStyleBackColor = true;
+            this.OptimizationApplyNowButton.Click += new System.EventHandler(this.OptimizationApplyNowButton_Click);
+            // 
+            // OptimizationRestoreButton
+            // 
+            this.MiscellaneousFlowPanel.SetFlowBreak(this.OptimizationRestoreButton, true);
+            this.OptimizationRestoreButton.Location = new System.Drawing.Point(150, 223);
+            this.OptimizationRestoreButton.Name = "OptimizationRestoreButton";
+            this.OptimizationRestoreButton.Size = new System.Drawing.Size(134, 23);
+            this.OptimizationRestoreButton.TabIndex = 32;
+            this.OptimizationRestoreButton.Text = "Restore Defaults";
+            this.OptimizationRestoreButton.UseVisualStyleBackColor = true;
+            this.OptimizationRestoreButton.Click += new System.EventHandler(this.OptimizationRestoreButton_Click);
+            // 
+            // OptimizationStatusBox
+            // 
+            this.MiscellaneousFlowPanel.SetFlowBreak(this.OptimizationStatusBox, true);
+            this.OptimizationStatusBox.Location = new System.Drawing.Point(15, 252);
+            this.OptimizationStatusBox.Multiline = true;
+            this.OptimizationStatusBox.Name = "OptimizationStatusBox";
+            this.OptimizationStatusBox.ReadOnly = true;
+            this.OptimizationStatusBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.OptimizationStatusBox.Size = new System.Drawing.Size(269, 66);
+            this.OptimizationStatusBox.TabIndex = 33;
+            this.OptimizationStatusBox.TabStop = false;
+            // 
             // UnlockFPSCB
             // 
             this.UnlockFPSCB.AutoSize = true;
-            this.UnlockFPSCB.Location = new System.Drawing.Point(15, 38);
+            this.UnlockFPSCB.Location = new System.Drawing.Point(15, 321);
             this.UnlockFPSCB.Margin = new System.Windows.Forms.Padding(3, 3, 60, 3);
             this.UnlockFPSCB.Name = "UnlockFPSCB";
             this.UnlockFPSCB.Size = new System.Drawing.Size(83, 17);
@@ -694,7 +955,7 @@ namespace RBX_Alt_Manager.Forms
             // OverrideWithCustomCB
             // 
             this.OverrideWithCustomCB.AutoSize = true;
-            this.OverrideWithCustomCB.Location = new System.Drawing.Point(15, 61);
+            this.OverrideWithCustomCB.Location = new System.Drawing.Point(15, 344);
             this.OverrideWithCustomCB.Margin = new System.Windows.Forms.Padding(3, 3, 60, 3);
             this.OverrideWithCustomCB.Name = "OverrideWithCustomCB";
             this.OverrideWithCustomCB.Size = new System.Drawing.Size(169, 17);
@@ -711,7 +972,7 @@ namespace RBX_Alt_Manager.Forms
             // 
             // ForceUpdateButton
             // 
-            this.ForceUpdateButton.Location = new System.Drawing.Point(15, 84);
+            this.ForceUpdateButton.Location = new System.Drawing.Point(15, 367);
             this.ForceUpdateButton.Name = "ForceUpdateButton";
             this.ForceUpdateButton.Size = new System.Drawing.Size(269, 23);
             this.ForceUpdateButton.TabIndex = 16;
@@ -745,6 +1006,8 @@ namespace RBX_Alt_Manager.Forms
             this.MiscellaneousFlowPanel.ResumeLayout(false);
             this.MiscellaneousFlowPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PresenceUpdateRateNum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AntiAfkMinNum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AntiAfkMaxNum)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaxFPSValue)).EndInit();
             this.ResumeLayout(false);
 
@@ -796,6 +1059,23 @@ namespace RBX_Alt_Manager.Forms
         private System.Windows.Forms.CheckBox PresenceCB;
         private System.Windows.Forms.Label PresenceUpdateLabel;
         private System.Windows.Forms.NumericUpDown PresenceUpdateRateNum;
+        private System.Windows.Forms.CheckBox AntiAfkCB;
+        private System.Windows.Forms.CheckBox AntiAfkBackgroundCB;
+        private System.Windows.Forms.Label AntiAfkMinLabel;
+        private System.Windows.Forms.NumericUpDown AntiAfkMinNum;
+        private System.Windows.Forms.Label AntiAfkMaxLabel;
+        private System.Windows.Forms.NumericUpDown AntiAfkMaxNum;
+        private System.Windows.Forms.Label OptimizationHeaderLabel;
+        private System.Windows.Forms.CheckBox AutoOptimizeCB;
+        private System.Windows.Forms.Label OptimizationProfileLabel;
+        private System.Windows.Forms.ComboBox OptimizationProfileCombo;
+        private System.Windows.Forms.CheckBox OptimizationApplyOnStartupCB;
+        private System.Windows.Forms.CheckBox OptimizationReapplyAfterUpdateCB;
+        private System.Windows.Forms.Label OptimizationBackendLabel;
+        private System.Windows.Forms.Label OptimizationBackendValueLabel;
+        private System.Windows.Forms.Button OptimizationApplyNowButton;
+        private System.Windows.Forms.Button OptimizationRestoreButton;
+        private System.Windows.Forms.TextBox OptimizationStatusBox;
         private System.Windows.Forms.OpenFileDialog CustomClientSettingsDialog;
         private System.Windows.Forms.CheckBox AutoCookieRefreshCB;
         private System.Windows.Forms.Button ForceUpdateButton;

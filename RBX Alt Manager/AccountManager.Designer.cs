@@ -33,6 +33,7 @@ namespace RBX_Alt_Manager
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccountManager));
             this.LabelJobID = new System.Windows.Forms.Label();
+            this.LabelPrivateCode = new System.Windows.Forms.Label();
             this.AddAccountsStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.manualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bulkUserPassToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,6 +87,7 @@ namespace RBX_Alt_Manager
             this.DefaultEncryptionButton = new System.Windows.Forms.Button();
             this.PasswordEncryptionButton = new System.Windows.Forms.Button();
             this.JobID = new RBX_Alt_Manager.Classes.BorderedTextBox();
+            this.PrivateCode = new RBX_Alt_Manager.Classes.BorderedTextBox();
             this.AccountsView = new BrightIdeasSoftware.ObjectListView();
             this.Username = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.AccountAlias = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -138,7 +140,18 @@ namespace RBX_Alt_Manager
             this.LabelJobID.Size = new System.Drawing.Size(38, 13);
             this.LabelJobID.TabIndex = 1000;
             this.LabelJobID.Text = "Job ID";
-            this.SaveTooltip.SetToolTip(this.LabelJobID, "Job ID is a unique ID assigned to every roblox server.");
+            this.SaveTooltip.SetToolTip(this.LabelJobID, "Job ID is a unique ID assigned to every roblox server instance.");
+            // 
+            // LabelPrivateCode
+            // 
+            this.LabelPrivateCode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LabelPrivateCode.AutoSize = true;
+            this.LabelPrivateCode.Location = new System.Drawing.Point(700, 27);
+            this.LabelPrivateCode.Name = "LabelPrivateCode";
+            this.LabelPrivateCode.Size = new System.Drawing.Size(54, 13);
+            this.LabelPrivateCode.TabIndex = 1000;
+            this.LabelPrivateCode.Text = "PRC Code";
+            this.SaveTooltip.SetToolTip(this.LabelPrivateCode, "PRC private server code (example: calf) or full PRC join URL.");
             // 
             // AddAccountsStrip
             // 
@@ -623,13 +636,22 @@ namespace RBX_Alt_Manager
             // 
             this.JobID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.JobID.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(122)))), ((int)(((byte)(122)))));
-            this.JobID.Location = new System.Drawing.Point(602, 43);
+            this.JobID.Location = new System.Drawing.Point(584, 43);
             this.JobID.Name = "JobID";
-            this.JobID.Size = new System.Drawing.Size(143, 20);
+            this.JobID.Size = new System.Drawing.Size(108, 20);
             this.JobID.TabIndex = 2;
-            this.SaveTooltip.SetToolTip(this.JobID, "Job ID is a unique ID assigned to every roblox server.\r\nYou may also put a Privat" +
-        "e Server link in this box to join it.");
+            this.SaveTooltip.SetToolTip(this.JobID, "Job ID is a unique ID assigned to every roblox server instance.");
             this.JobID.Click += new System.EventHandler(this.JobID_Click);
+            // 
+            // PrivateCode
+            // 
+            this.PrivateCode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.PrivateCode.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(122)))), ((int)(((byte)(122)))));
+            this.PrivateCode.Location = new System.Drawing.Point(700, 43);
+            this.PrivateCode.Name = "PrivateCode";
+            this.PrivateCode.Size = new System.Drawing.Size(72, 20);
+            this.PrivateCode.TabIndex = 3;
+            this.SaveTooltip.SetToolTip(this.PrivateCode, "Enter PRC code (calf) or paste full PRC join URL.");
             // 
             // AccountsView
             // 
@@ -1029,9 +1051,9 @@ namespace RBX_Alt_Manager
             this.PlaceID.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(122)))), ((int)(((byte)(122)))));
             this.PlaceID.Location = new System.Drawing.Point(504, 43);
             this.PlaceID.Name = "PlaceID";
-            this.PlaceID.Size = new System.Drawing.Size(78, 20);
+            this.PlaceID.Size = new System.Drawing.Size(72, 20);
             this.PlaceID.TabIndex = 1;
-            this.PlaceID.Text = "5315046213";
+            this.PlaceID.Text = "2534724415";
             this.PlaceID.Click += new System.EventHandler(this.PlaceID_Click);
             this.PlaceID.TextChanged += new System.EventHandler(this.PlaceID_TextChanged);
             // 
@@ -1065,8 +1087,10 @@ namespace RBX_Alt_Manager
             this.Controls.Add(this.DescriptionBox);
             this.Controls.Add(this.SetDescription);
             this.Controls.Add(this.JoinServer);
+            this.Controls.Add(this.LabelPrivateCode);
             this.Controls.Add(this.LabelJobID);
             this.Controls.Add(this.LabelPlaceID);
+            this.Controls.Add(this.PrivateCode);
             this.Controls.Add(this.JobID);
             this.Controls.Add(this.PlaceID);
             this.Controls.Add(this.AccountsView);
@@ -1102,7 +1126,9 @@ namespace RBX_Alt_Manager
         #endregion
         public Classes.BorderedTextBox PlaceID;
         public Classes.BorderedTextBox JobID;
+        public Classes.BorderedTextBox PrivateCode;
         private System.Windows.Forms.Label LabelJobID;
+        private System.Windows.Forms.Label LabelPrivateCode;
         private MenuButton Add;
         private System.Windows.Forms.Button Remove;
         private System.Windows.Forms.Button JoinServer;
